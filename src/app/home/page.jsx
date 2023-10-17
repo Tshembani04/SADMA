@@ -1,5 +1,8 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
+
+const SignUp = dynamic(() => import("../signup/page"), { ssr: false });
 import HomeComponent from "../../components/home";
 
 const Home = () => {
@@ -7,6 +10,7 @@ const Home = () => {
     <>
       <div className="text-xl">
         <HomeComponent />
+        <SignUp />
       </div>
     </>
   );

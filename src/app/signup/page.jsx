@@ -1,80 +1,56 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../Firebase";
 import { collection } from "firebase/firestore"; // Import firestore functions
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 
 const SignUp = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const SignUp = async (e) => {
-    e.preventDefault();
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
+  useEffect(() => {
+    const signUpUser = async () => {
+      const email = emailRef.current.value;
+      const password = passwordRef.current.value;
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
+      try {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        const user = userCredential.user;
 
-      // Use firestore collection and getDocs
-      const firestore = db();
-      const usersCollection = collection(firestore, "users");
+        const firestore = db();
+        const usersCollection = collection(firestore, "users");
 
-      // Log to check if the collection exists
-      console.log("Users collection:", usersCollection);
+        console.log("Users collection:", usersCollection);
 
-      // Create the collection manually if it doesn't exist
-      // You can remove this block after running it once
-      // It's just to ensure the collection is created
-      if (!(await usersCollection.get()).exists()) {
-        await usersCollection.doc(); // Create a dummy document
-        console.log("Users collection created");
+        if (!(await usersCollection.get()).exists()) {
+          await usersCollection.doc();
+          console.log("Users collection created");
+        }
+
+        await usersCollection.doc(user.uid).set({
+          email: user.email,
+        });
+
+        console.log("This is the user's data", user);
+      } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
       }
+    };
 
-      await usersCollection.doc(user.uid).set({
-        email: user.email,
-        // Add other user information fields as needed
-      });
-
-      console.log("This is the user's data", user);
-      toast.success("Account created successfully!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // handling the error
-      toast.error(errorMessage, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-  };
-
+    // Call the signUpUser function only on mount
+    signUpUser();
+  }, []);
   return (
     <div className="">
-      <h1 className="flex justify-center pt-32 text-3xl items-center font-black text-center text-[#8E7FFE] md:text-5xl">
+      <h1 className="flex justify-center pt-32 text-3xl font-black text-center text-[#8E7FFE] md:text-5xl">
         South African Disaster Management
       </h1>
       <div className="flex items-center w-screen h-screen px-2 overflow-hidden">
@@ -134,7 +110,7 @@ const SignUp = () => {
           </p>
         </div>
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };
