@@ -1,58 +1,57 @@
+// Wrap only the useRef calls with "use client"
 "use client";
-import React, { useEffect, useRef } from "react";
+import React from "react";
+import Link from "next/link";
+import { useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../Firebase";
-import { collection } from "firebase/firestore"; // Import firestore functions
+import { auth } from "../Firebase";
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
-import Link from "next/link";
 
+// Define your component
 const SignUp = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  useEffect(() => {
-    const signUpUser = async () => {
-      const email = emailRef.current.value;
-      const password = passwordRef.current.value;
-
-      try {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+  const SignUp = async (e) => {
+    e.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
         const user = userCredential.user;
-
-        const firestore = db();
-        const usersCollection = collection(firestore, "users");
-
-        console.log("Users collection:", usersCollection);
-
-        if (!(await usersCollection.get()).exists()) {
-          await usersCollection.doc();
-          console.log("Users collection created");
-        }
-
-        await usersCollection.doc(user.uid).set({
-          email: user.email,
-        });
-
         console.log("This is the user's data", user);
-      } catch (error) {
+        // toast.success("Account created successful!", {
+        //   position: "top-right",
+        //   autoClose: 2000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        // });
+      })
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-      }
-    };
+        // handling the error
+        // toast.error(errorMessage, {
+        //   position: "top-right",
+        //   autoClose: 2000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        // });
+      });
+  };
 
-    // Call the signUpUser function only on mount
-    signUpUser();
-  }, []);
   return (
-    <div className="">
-      <h1 className="flex justify-center pt-32 text-3xl font-black text-center text-[#8E7FFE] md:text-5xl">
-        South African Disaster Management
-      </h1>
+    <>
       <div className="flex items-center w-screen h-screen px-2 overflow-hidden">
         <div className="relative flex flex-col px-5 py-10 space-y-5 bg-white rounded-lg shadow-xl w-96 sm:mx-auto">
           <div className="absolute w-5/6 h-full -translate-x-1/2 rounded-lg bg-[#8E7FFE] -z-10 top-4 left-1/2 sm:-right-10 sm:top-auto sm:left-auto sm:w-full sm:translate-x-0"></div>
@@ -60,6 +59,7 @@ const SignUp = () => {
             <h1 className="text-3xl font-bold text-center text-black">
               Create an account
             </h1>
+            {/* <p className="text-gray-500">Create an account to access your account</p> */}
           </div>
           <form onSubmit={SignUp}>
             <div>
@@ -97,6 +97,12 @@ const SignUp = () => {
               >
                 Sign Up
               </button>
+              {/* <a
+            class="w-full text-center text-sm font-medium text-gray-600 hover:underline"
+            href="#"
+          >
+            Forgot your password?
+          </a> */}
             </div>
           </form>
           <p className="text-center text-black">
@@ -111,7 +117,7 @@ const SignUp = () => {
         </div>
       </div>
       {/* <ToastContainer /> */}
-    </div>
+    </>
   );
 };
 

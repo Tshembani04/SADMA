@@ -1,9 +1,11 @@
 // Wrap only the useRef calls with "use client"
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { auth } from "../Firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const lemailRef = useRef();
@@ -20,19 +22,35 @@ const Login = () => {
         // Signed in
         const user = userCredential.user;
         console.log("Logged in user's data:", user);
+        // toast.success("Login successful!", user, {
+        //   position: "top-right",
+        //   autoClose: 2000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        // });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        // toast.error(errorMessage, {
+        //   position: "top-right",
+        //   autoClose: 2000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        // });
       });
   };
 
   return (
-    <div className="">
-      <h1 className="flex justify-center pt-32 text-3xl font-black text-center text-[#8E7FFE] md:text-5xl">
-        South African Disaster Management
-      </h1>
-
+    <>
       <div className="flex items-center w-screen h-screen px-2 overflow-hidden">
         <div className="relative flex flex-col px-5 py-10 space-y-5 bg-white rounded-lg shadow-xl w-96 sm:mx-auto">
           <div className="absolute w-5/6 h-full -translate-x-1/2 rounded-lg bg-[#8E7FFE] -z-10 top-4 left-1/2 sm:-right-10 sm:top-auto sm:left-auto sm:w-full sm:translate-x-0"></div>
@@ -97,7 +115,8 @@ const Login = () => {
           </p>
         </div>
       </div>
-    </div>
+      {/* <ToastContainer /> */}
+    </>
   );
 };
 

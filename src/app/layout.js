@@ -1,10 +1,6 @@
-"use client";
+// "use client";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./Firebase";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 //Set an authentication state observer and get user data using onAuthStateChange
 
@@ -16,20 +12,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const router = useRouter();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        console.log("Logged in userID:", uid);
-        router.push("/home");
-      } else {
-        router.push("/login");
-      }
-    });
-  }, []);
-
   return (
     <>
       <html lang="en">
