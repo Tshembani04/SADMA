@@ -5,13 +5,16 @@ import Link from "next/link";
 import { useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Firebase";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Define your component
 const SignUp = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
+  // const firstNameRef = useRef();
+  // const surnameRef = useRef();
+  // const
 
   const SignUp = async (e) => {
     e.preventDefault();
@@ -22,31 +25,30 @@ const SignUp = () => {
         // Signed in
         const user = userCredential.user;
         console.log("This is the user's data", user);
-        // toast.success("Account created successful!", {
-        //   position: "top-right",
-        //   autoClose: 2000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined,
-        //   theme: "light",
-        // });
+        toast.success("Account created successful!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        // handling the error
-        // toast.error(errorMessage, {
-        //   position: "top-right",
-        //   autoClose: 2000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined,
-        //   theme: "light",
-        // });
+
+        toast.error(errorMessage, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       });
   };
 
