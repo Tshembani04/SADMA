@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { auth } from "@/app/Firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,6 +16,20 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { MdOutlinePolicy } from "react-icons/md";
 
 const SideBar = ({ children }) => {
+  const [reportCount, setReportCount] = useState(0);
+
+  useEffect(() => {
+    const fetchReportCount = async () => {
+      const db = getFirestore();
+      const reportsCollection = collection(db, "disasterReports");
+      const reportsSnapshots = await getDocs(reportsCollection);
+      const numberOfreports = reportsSnapshots.size;
+      setReportCount(numberOfreports);
+      console.log("profiles", numberOfreports);
+    };
+    fetchReportCount();
+  }, []);
+
   const logout = () => {
     auth.signOut();
     toast.success("You signed out successfully", {
@@ -32,7 +47,7 @@ const SideBar = ({ children }) => {
   return (
     <>
       <div className="flex">
-        <div className="fixed flex flex-col justify-between w-20 h-screen p-4 bg-white ">
+        <div className="fixed flex flex-col justify-between w-20 h-screen p-4 bg-black ">
           <div className="flex flex-col items-center">
             <button onClick={logout}>
               <div className="inline-block p-3 text-white transition-all duration-300 bg-indigo-400 rounded-lg">
@@ -56,13 +71,16 @@ const SideBar = ({ children }) => {
                 <BsCalendarEvent size={20} />
               </div>
             </Link>
-            <Link href="/location">
-              <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:bg-red-300 hover:text-white">
-                <AiOutlineBell size={20} />
-              </div>
-            </Link>
+            <div className="flex items-center p-3 mx-2 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg hover:bg-red-300 hover:text-white">
+              <AiOutlineBell size={20} />
+              {reportCount > 0 && (
+                <span className="px-1 py-0.5 ml-2 text-xs text-black bg-red-500 rounded-full">
+                  {reportCount}
+                </span>
+              )}
+            </div>
             <Link href="/users">
-              <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:bg-red-300]  hover:text-white">
+              <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:text-white hover:bg-red-300 ">
                 <BsPeople size={20} />
               </div>
             </Link>

@@ -6,20 +6,21 @@ import React, { useEffect, useState } from "react";
 const TopCards = () => {
   //Variables for all the totals
   const [totaldisasterReports, setTotalDisasterReports] = useState(0);
-  const [totalVendors, setTotalVendors] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0);
   const [totalCompanyGroups, setTotalCompanyGroups] = useState(0);
 
   //Variables for all the Percentages
   const [percentageDisasterReports, setPercentageDisasterReports] = useState(0);
-  const [percentageVendors, setPercentageVendors] = useState(0);
+  const [percentageUsers, setPercentageUsers] = useState(0);
   const [percentageCompanyGroups, setPercentageCompanyGroups] = useState(0);
 
-  //Collect data in our db
+  // Set to track unique user IDs associated with reports
+  const uniqueUserIds = new Set();
+
+  // Collect data in our db
   useEffect(() => {
     const fetchData = async () => {
       const disasterReportsQuery = collection(db, "disasterReports");
-      const vendorsQuery = collection(db, "Vendors");
-      const companyGroupsQuery = collection(db, "Company_Groups");
 
       // Listen for real-time changes in the collections
       const unsubscribeDisasterReports = onSnapshot(
@@ -27,30 +28,25 @@ const TopCards = () => {
         (snapshot) => {
           const totalDisasterReportsDocuments = snapshot.size;
           setTotalDisasterReports(totalDisasterReportsDocuments);
+
+          // Track unique user IDs associated with reports
+          snapshot.forEach((doc) => {
+            const userId = doc.data().userId; // Replace 'userId' with the actual field name in your document
+            uniqueUserIds.add(userId);
+          });
+
+          // Update the user count based on unique user IDs
+          setTotalUsers(uniqueUserIds.size);
+
+          // Update the percentages
           updatePercentage("disasterReports", totalDisasterReportsDocuments);
+          updatePercentage("users", uniqueUserIds.size);
         }
       );
-
-      // const unsubscribeVendors = onSnapshot(vendorsQuery, (snapshot) => {
-      //   const totalVendorsDocuments = snapshot.size;
-      //   setTotalVendors(totalVendorsDocuments);
-      //   updatePercentage("Vendors", totalVendorsDocuments);
-      // });
-
-      // const unsubscribeCompanyGroups = onSnapshot(
-      //   companyGroupsQuery,
-      //   (snapshot) => {
-      //     const totalCompanyGroupsDocuments = snapshot.size;
-      //     setTotalCompanyGroups(totalCompanyGroupsDocuments);
-      //     updatePercentage("CompanyGroups", totalCompanyGroupsDocuments);
-      //   }
-      // );
 
       // Clean up listeners when the component unmounts
       return () => {
         unsubscribeDisasterReports();
-        unsubscribeVendors();
-        unsubscribeCompanyGroups();
       };
     };
 
@@ -66,8 +62,8 @@ const TopCards = () => {
       case "disasterReports":
         setPercentageDisasterReports(calculatedPercentage);
         break;
-      case "Vendors":
-        setPercentageVendors(calculatedPercentage);
+      case "users":
+        setPercentageUsers(calculatedPercentage);
         break;
       case "CompanyGroups":
         setPercentageCompanyGroups(calculatedPercentage);
@@ -79,10 +75,10 @@ const TopCards = () => {
 
   return (
     <div className="grid gap-4 p-4 ml-20 lg:grid-cols-5 ">
-      <div className="flex justify-between w-full col-span-1 p-4 bg-white rounded-lg lg:col-span-2">
+      <div className="flex justify-between w-full col-span-1 p-4 bg-black rounded-lg lg:col-span-2">
         <div className="flex flex-col w-0 pb-4 ">
           <p className="text-2xl font-bold">{totaldisasterReports}</p>
-          <p className="text-gray-600">Disasters Reported</p>
+          <p className="text-white">Disasters Reported</p>
         </div>
         <p className="flex items-center justify-center p-2 rounded-lg bg-lightGreen">
           <span className="text-lg text-black">
@@ -90,28 +86,28 @@ const TopCards = () => {
           </span>
         </p>
       </div>
-      {/* <div className="flex justify-between w-full col-span-1 p-4 bg-white rounded-lg lg:col-span-2">
+      <div className="flex justify-between w-full col-span-1 p-4 bg-black rounded-lg lg:col-span-2">
         <div className="flex flex-col w-0 pb-4 ">
-          <p className="text-2xl font-bold">{totalVendors}</p>
-          <p className="text-gray-600">Vendos</p>
+          <p className="text-2xl font-bold">{totalUsers}</p>
+          <h1 className="w-2 text-white ">Report(s) you created</h1>
         </div>
         <p className="flex items-center justify-center p-2 rounded-lg bg-lightGreen">
           <span className="text-lg text-black">
-            {percentageVendors.toFixed(2)}%
+            {percentageUsers.toFixed(2)}%
           </span>
         </p>
       </div>
-      <div className="flex justify-between w-full p-4 bg-white rounded-lg">
+      <div className="flex justify-between w-full p-4 bg-black rounded-lg">
         <div className="flex flex-col w-0 pb-4 ">
-          <p className="text-2xl font-bold"> {totalCompanyGroups}</p>
-          <p className="text-gray-600">Company Groups</p>
+          <p className="text-2xl font-bold"> {totalUsers}</p>
+          <p className="text-white">Locations</p>
         </div>
         <p className="flex items-center justify-center p-2 rounded-lg bg-lightGreen">
           <span className="text-lg text-black">
-            {percentageCompanyGroups.toFixed(2)}%
+            {percentageUsers.toFixed(2)}%
           </span>
         </p>
-      </div> */}
+      </div>
     </div>
   );
 };

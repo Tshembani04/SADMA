@@ -35,7 +35,7 @@ const BarChat = () => {
   useEffect(() => {
     const fetchData = async () => {
       const workOrdersQuery = query(
-        collection(db, "Work_Orders"),
+        collection(db, "disasterReports"),
         orderBy("createdAt") // This is the date the order(s) was created on
       );
 
@@ -64,7 +64,7 @@ const BarChat = () => {
           labels: dates,
           datasets: [
             {
-              label: "Work Orders",
+              label: "Reports per week",
               data: workOrdersData,
               borderColor: "#008000",
               backgroundColor: "#008000",
@@ -78,7 +78,7 @@ const BarChat = () => {
             },
             title: {
               display: true,
-              text: "Weekly Work Order Insights",
+              text: "Weekly Reports Insights",
             },
           },
           maintainAspectRatio: false,
@@ -97,7 +97,7 @@ const BarChat = () => {
 
   return (
     <>
-      <div className="lg:w-full w-[370px] sm:w-full md:w-full mx-20 md:col-span-2 relative lg:h-[70vh] h-[40vh] md:pt-0 pt-3 m-auto p-4 gap-4 rounded-lg bg-white">
+      <div className="w-[370px] md:w-[1610px] ml-[96px] mx-20 md:col-span-2 relative lg:h-[70vh] h-[40vh] md:pt-0 pt-3 m-auto p-4 gap-4 rounded-lg bg-black">
         {/* <p className="-mt-3 font-bold text-center text-black text-2xl0">
           Weekly Work Order Insights
         </p> */}
