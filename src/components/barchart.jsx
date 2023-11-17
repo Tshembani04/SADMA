@@ -97,11 +97,11 @@ const BarChat = () => {
 
   return (
     <div className="bg-black">
-      <div className="w-[370px] md:w-[1020px] ml-[96px] mx-20 md:col-span-2 relative lg:h-[70vh] h-[40vh] md:pt-0 pt-3 m-auto p-4 gap-4 rounded-lg bg-white">
+      <div className="w-[300px] md:w-[1020px] ml-[96px] mx-20 md:col-span-2 relative lg:h-[70vh] h-[32vh] md:pt-0 pt-3 m-auto p-4 gap-4 rounded-lg bg-white">
         {/* <p className="-mt-3 font-bold text-center text-black text-2xl0">
           Weekly Work Order Insights
         </p> */}
-        <Bar data={chartData} options={chartOptions} />
+        <Bar data={chartData} className="" options={chartOptions} />
       </div>
     </div>
   );

@@ -25,12 +25,12 @@ const Header = () => {
 
   return (
     <SideBar>
-      <div className="flex justify-between px-4 pt-4 bg-black">
+      <div className="flex justify-between w-full px-4 pt-4 bg-black">
         <h2 className="text-3xl font-bold text-white ">
           South African Disaster Management
         </h2>
         {email ? (
-          <h2 className="text-white -ml-4 md:ml-0 text-sm md:text-xl">
+          <h2 className="text-white ml-2 md:ml-0 text-[12px] md:text-xl">
             Welcome back {email}
           </h2>
         ) : (

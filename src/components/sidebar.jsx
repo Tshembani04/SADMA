@@ -14,8 +14,10 @@ import { BsCalendarEvent, BsPeople, BsMap } from "react-icons/bs";
 import { AiOutlineBell } from "react-icons/ai";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { MdOutlinePolicy } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 const SideBar = ({ children }) => {
+  const route = useRouter();
   const [reportCount, setReportCount] = useState(0);
 
   useEffect(() => {
@@ -32,6 +34,7 @@ const SideBar = ({ children }) => {
 
   const logout = () => {
     auth.signOut();
+    route.push("/login");
     toast.success("You signed out successfully", {
       position: "top-right",
       autoClose: 9000,
@@ -84,22 +87,17 @@ const SideBar = ({ children }) => {
                 <BsPeople size={13} />
               </div>
             </Link>
-            <Link href="/assets">
+            <Link href="/locations">
               <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:text-white hover:bg-red-300 ">
-                <MdOutlinePolicy size={13} />
-              </div>
-            </Link>
-
-            <Link href="/vendors">
-              <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:bg-red-300 hover:text-white">
                 <BsMap size={13} />
               </div>
             </Link>
-            <Link href="/vendors">
+
+            {/* <Link href="/vendors">
               <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:bg-red-300 hover:text-white">
-                <FiSettings size={13} />
+                <BsMap size={13} />
               </div>
-            </Link>
+            </Link> */}
           </div>
         </div>
         <main className="w-full ml-20 ">{children}</main>

@@ -13,6 +13,13 @@ const Login = () => {
   const lemailRef = useRef();
   const lpasswordRef = useRef();
 
+  const backgroundStyle = {
+    backgroundImage: `url('https://source.unsplash.com/1600x900/?natural-disasters')`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    height: "100vh",
+  };
+
   const Login = async (e) => {
     e.preventDefault();
 
@@ -53,7 +60,7 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div style={backgroundStyle}>
       <div className="flex items-center w-screen h-screen px-2 overflow-hidden">
         <div className="relative flex flex-col px-5 py-10 space-y-5 bg-white rounded-lg shadow-xl w-96 sm:mx-auto">
           <div className="absolute w-5/6 h-full -translate-x-1/2 rounded-lg bg-[#8E7FFE] -z-10 top-4 left-1/2 sm:-right-10 sm:top-auto sm:left-auto sm:w-full sm:translate-x-0"></div>
@@ -99,12 +106,6 @@ const Login = () => {
               >
                 Login
               </button>
-              {/* <a
-        class="w-full text-center text-sm font-medium text-gray-600 hover:underline"
-        href="#"
-      >
-        Forgot your password?
-      </a> */}
             </div>
           </form>
           <p className="text-center text-black">
@@ -119,7 +120,7 @@ const Login = () => {
         </div>
       </div>
       {/* <ToastContainer /> */}
-    </>
+    </div>
   );
 };
 

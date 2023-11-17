@@ -16,7 +16,6 @@ const page = () => {
         const reports = [];
         for (const doc of querySnapshot.docs) {
           const data = doc.data();
-          console.log("user names", data.name);
           reports.push({ id: doc.id, ...data });
         }
 
@@ -29,9 +28,16 @@ const page = () => {
     fetchDisasterReports();
   }, []);
 
+  const backgroundStyle = {
+    backgroundImage: `url('https://source.unsplash.com/1600x900/?face')`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    minHeight: "100vh",
+  };
+
   return (
-    <div className="p-8">
-      <h1 className="mb-6 text-2xl font-bold">Reporters </h1>
+    <div style={backgroundStyle} className="p-8">
+      <h1 className="mb-6 text-2xl font-bold text-white">Reporters </h1>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {disasterReports.map((report) => (
           <div key={report.id} className="p-4 bg-white rounded-md shadow-md">
@@ -42,4 +48,5 @@ const page = () => {
     </div>
   );
 };
+
 export default page;
