@@ -7,11 +7,11 @@ import BarChat from "./barchart";
 
 function HomeHolder() {
   return (
-    <>
+    <div className="bg-blck">
       <Header />
       <TopCards />
       <BarChat />
-    </>
+    </div>
   );
 }
 

@@ -25,15 +25,17 @@ const Header = () => {
 
   return (
     <SideBar>
-      <div className="flex justify-between px-4 pt-4">
-        <h2 className="text-3xl font-bold ">
+      <div className="flex justify-between px-4 pt-4 bg-black">
+        <h2 className="text-3xl font-bold text-white ">
           South African Disaster Management
         </h2>
         {email ? (
-          <h2>Welcome back {email}</h2>
+          <h2 className="text-white -ml-4 md:ml-0 text-sm md:text-xl">
+            Welcome back {email}
+          </h2>
         ) : (
           <div>
-            <h1>You are not welcome</h1>
+            <h1 className="text-white">You are not welcome</h1>
           </div>
         )}
       </div>

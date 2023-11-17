@@ -47,32 +47,32 @@ const SideBar = ({ children }) => {
   return (
     <>
       <div className="flex">
-        <div className="fixed flex flex-col justify-between w-20 h-screen p-4 bg-black ">
+        <div className="fixed flex flex-col justify-between w-20 h-screen p-4 bg-white ">
           <div className="flex flex-col items-center">
             <button onClick={logout}>
-              <div className="inline-block p-3 text-white transition-all duration-300 bg-indigo-400 rounded-lg">
+              <div className="inline-block p-3 text-white transition-all duration-300 bg-red-600 rounded-lg">
                 <IoIosLogOut size={20} />
               </div>
             </button>
             <span className="border-b-[1px] border-gray-200 w-full p-2"></span>
             <Link href="/home">
               <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:text-white hover:bg-red-300 ">
-                <LuLayoutDashboard size={20} />
+                <LuLayoutDashboard size={13} />
               </div>
             </Link>
             <Link href="/disaster-report">
               <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:text-white hover:bg-red-300 ">
-                <GoReport size={20} />
+                <GoReport size={13} />
               </div>
             </Link>
 
             <Link href="/disaster-alerts">
               <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:bg-red-300 hover:text-white">
-                <BsCalendarEvent size={20} />
+                <BsCalendarEvent size={13} />
               </div>
             </Link>
             <div className="flex items-center p-3 mx-2 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg hover:bg-red-300 hover:text-white">
-              <AiOutlineBell size={20} />
+              <AiOutlineBell size={13} />
               {reportCount > 0 && (
                 <span className="px-1 py-0.5 ml-2 text-xs text-black bg-red-500 rounded-full">
                   {reportCount}
@@ -81,23 +81,23 @@ const SideBar = ({ children }) => {
             </div>
             <Link href="/users">
               <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:text-white hover:bg-red-300 ">
-                <BsPeople size={20} />
+                <BsPeople size={13} />
               </div>
             </Link>
             <Link href="/assets">
               <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:text-white hover:bg-red-300 ">
-                <MdOutlinePolicy size={20} />
+                <MdOutlinePolicy size={13} />
               </div>
             </Link>
 
             <Link href="/vendors">
               <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:bg-red-300 hover:text-white">
-                <BsMap size={20} />
+                <BsMap size={13} />
               </div>
             </Link>
             <Link href="/vendors">
               <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:bg-red-300 hover:text-white">
-                <FiSettings size={20} />
+                <FiSettings size={13} />
               </div>
             </Link>
           </div>
