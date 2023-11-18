@@ -1,4 +1,5 @@
-
+## Using git type = "git clone https://github.com/Tshembani04/SADMA.git"
+vs code = run  type = npm run dev
 
 ###For installation
 #Install Nodejs 
