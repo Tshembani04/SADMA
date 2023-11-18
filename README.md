@@ -1,6 +1,12 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+
+###For installation
+#Install Nodejs 
+#Install VS Code 
+
+
+
+## Getting Started when you open your app in order to run it .
 
 First, run the development server:
 
