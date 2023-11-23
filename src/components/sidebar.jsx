@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { IoIosLogOut } from "react-icons/io";
 import { FiSettings } from "react-icons/fi";
 import { GoReport } from "react-icons/go";
-import { BsCalendarEvent, BsPeople, BsMap } from "react-icons/bs";
+import { BsCalendarEvent, BsPeople, BsMap, BsPhone } from "react-icons/bs";
 import { AiOutlineBell } from "react-icons/ai";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { MdOutlinePolicy } from "react-icons/md";
@@ -87,17 +87,16 @@ const SideBar = ({ children }) => {
                 <BsPeople size={13} />
               </div>
             </Link>
-            <Link href="/locations">
+            <Link href="/contact-us">
               <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:text-white hover:bg-red-300 ">
-                <BsMap size={13} />
+                <BsPhone size={13} />
               </div>
             </Link>
 
-            {/* <Link href="/vendors">
-              <div className="inline-block p-3 my-4 text-black transition-all duration-300 bg-gray-100 rounded-lg cursor-pointer hover:bg-red-300 hover:text-white">
-                <BsMap size={13} />
-              </div>
-            </Link> */}
+            <Link href="/privacy-policy">
+              <div className="inline-block p-3 my-4 text-black transition-all duration-300 text-sm rounded-lg cursor-pointer bg-red-300 hover:text-white">
+                privacy policy              </div>
+            </Link>
           </div>
         </div>
         <main className="w-full ml-20 ">{children}</main>
